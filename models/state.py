@@ -14,7 +14,8 @@ class State(BaseModel, Base):
     if storage_type == 'db':
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
-        cities = relationship('City', backref='state', cascade='all, delete-orphan')
+        cities = relationship('City', backref='state',
+                cascade='all, delete-orphan')
     else:
         name = ""
 
@@ -28,7 +29,7 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     cities.append(city)
             return cities
-        
+
     def __init__(self, *args, **kwargs):
         """initializes state"""
         super().__init__(*args, **kwargs)
