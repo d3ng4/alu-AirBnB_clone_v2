@@ -19,7 +19,7 @@ class BaseModel:
     """A base class for all hbnb models"""
     if storage_type == 'db':
         id = Column(String(60),
-                    nullable=False, primary_key=True, unique=True)
+                    nullable=False, primary_key=True)
 
         created_at = Column(DATETIME, nullable=False,
                             default=datetime.utcnow())
@@ -42,6 +42,13 @@ class BaseModel:
                 if k != '__class__':
                     setattr(self, k, kwargs[k])
             self.__dict__.update(kwargs)
+            if storage_type == 'db':
+                if not hasattr(kwargs, 'id'):
+                    setattr(self, 'id', str(uuid.uuid4()))
+                if not hasattr(kwargs, 'created_at'):
+                    setattr(self, 'created_at', datetime.now())
+                if not hasattr(kwargs, 'updated_at'):
+                    setattr(self, 'updated_at', datetime.now())
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -58,12 +65,12 @@ class BaseModel:
     def to_dict(self):
         """Convert instance into dict format"""
         dictionary = {}
-        dictionary.update(self.__dict__)
+        dictionary = self.__dict__.copy()
         dictionary["__class__"] = self.__class__.__name__
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        if '_sa_instance_state' in dictionary.keys():
-            del(dictionary['_sa_instance_state'])
+        if "_sa_instance_state" in dictionary:
+            del dictionary["_sa_instance_state"]
         return dictionary
 
     def delete(self):

@@ -11,27 +11,26 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls:
-            return FileStorage.__objects
-        class_name = cls.__name__
+            return self.__objects
         obj_dict = {}
-
-        for key in FileStorage.__objects.keys():
-            if key.split('.')[0] == class_name:
-                obj_dict[key] = FileStorage.__objects[key]
+        for key, value in self.__objects.items():
+            if cls == value.__class__.__name__ or cls == value.__class__:
+                obj_dict[key] = self.__objects[key]
         return obj_dict
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
-        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+        # self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+        key = obj.__class__.__name__ + '.' + obj.id
+        self.__objects[key] = obj
 
     def save(self):
         """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as f:
-            temp = {}
-            temp.update(FileStorage.__objects)
-            for key, val in temp.items():
-                temp[key] = val.to_dict()
-            json.dump(temp, f)
+        with open(self.__file_path, mode='w') as file:
+            obj_dict = {}
+            for k, val in self.__objects.items():
+                obj_dict[k] = val.to_dict()
+            json.dump(obj_dict, file)
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -60,8 +59,10 @@ class FileStorage:
     def delete(self, obj=None):
         """delete obj from __objects, if it's inside
         if obj == none, do nothing"""
-        if obj:
+        if obj is not None:
+            obj_key = obj.__class__.__name__ + '.' + obj.id
+            if obj_key in self.__objects:
+                del self.__objects[obj_key]
+                self.save()
+        else:
             return
-        obj_key = obj.to_dict()['__class__'] + '.' + obj.id
-        if obj_key in self.__objects.keys():
-            del FileStorage.__objects[obj_key]
