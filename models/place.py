@@ -13,8 +13,8 @@ if storage_type == 'db':
                                  ForeignKey('places.id'),
                                  primary_key=True, nullable=False),
                           Column('amenity_id', String(60),
-                                 ForeignKey('amenities.id'),
-                                 primary_key=True, nullable=False))
+                                ForeignKey('amenities.id'),
+                                primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
