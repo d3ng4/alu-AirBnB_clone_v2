@@ -38,7 +38,8 @@ class DBStorage:
 
         if cls is not None:
             if cls in classes:
-                return {obj.__class__.__name__ + '.' + obj.id: obj for obj in self.__session.query(cls).all()}
+                return {obj.__class__.__name__ + '.' + obj.id:
+                        obj for obj in self.__session.query(cls).all()}
             else:
                 return {}
         else:
@@ -59,6 +60,7 @@ class DBStorage:
 
     def reload(self):
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine, 
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
