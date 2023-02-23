@@ -33,9 +33,9 @@ class Place(BaseModel, Base):
         longitude = Column(Float, nullable=True)
         amenity_ids = []
         reviews = relationship("Review", backref="place",
-                               cascade="all, delete")
+                               cascade="all, delete, delete-orphan")
         amenities = relationship("Amenity", secondary="place_amenity",
-                                 backref='places_amenities', viewonly=False)
+                                 backref='places_amenities', viewonly=False,)
     else:
         city_id = ""
         user_id = ""
@@ -49,22 +49,18 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-    def __init__(self, *args, **kwargs):
-        """initializes Place"""
-        super().__init__(*args, **kwargs)
-
-    @property
-    def reviews(self):
-        """getter attribute reviews that
-        returns the list of Review instances
-        with place_id equals to the current Place.id"""
-        from models import storage
-        from models.review import Review
-        reviews = []
-        for review in storage.all(Review).values():
-            if review.place_id == self.id:
-                reviews.append(review)
-        return reviews
+    # @property
+    # def reviews(self):
+    #     """getter attribute reviews that
+    #     returns the list of Review instances
+    #     with place_id equals to the current Place.id"""
+    #     from models import storage
+    #     from models.review import Review
+    #     reviews = []
+    #     for review in storage.all(Review).values():
+    #         if review.place_id == self.id:
+    #             reviews.append(review)
+    #     return reviews
 
     @property
     def amenities(self):
@@ -78,3 +74,11 @@ class Place(BaseModel, Base):
             if amenity.id in self.amenity_ids:
                 amenities.append(amenity)
         return amenities
+    
+    @amenities.setter
+    def amenities(self, obj):
+        """setter attribute amenities that handles append method for adding"""
+        from models.amenity import Amenity
+        if type(obj) == Amenity:
+            self.amenity_ids.append(obj.id) 
+    
