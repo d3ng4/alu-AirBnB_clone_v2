@@ -9,10 +9,10 @@ storage_type = getenv("HBNB_TYPE_STORAGE")
 
 if storage_type == 'db':
     place_amenity = Table('place_amenity', Base.metadata,
-        Column('place_id', String(60), ForeignKey('places.id'), 
+            Column('place_id', String(60), ForeignKey('places.id'),
                 primary_key=True, nullable=False),
-        Column('amenity_id', String(60), ForeignKey('amenities.id'),
-            primary_key=True, nullable=False)
+            Column('amenity_id', String(60), ForeignKey('amenities.id'),
+                primary_key=True, nullable=False)
     )
 
 
@@ -32,9 +32,9 @@ class Place(BaseModel, Base):
         longitude = Column(Float, nullable=True)
         amenity_ids = []
         reviews = relationship("Review", backref="place",
-                cascade="all, delete")
+                    cascade="all, delete")
         amenities = relationship("Amenity", secondary="place_amenity",
-                                backref='places_amenities', viewonly=False)
+                    backref='places_amenities', viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -67,8 +67,8 @@ class Place(BaseModel, Base):
 
     @property
     def amenities(self):
-        """getter attribute amenities that returns the list of Amenity instances
-        based on the attribute amenity_ids that contains all
+        """getter attribute amenities that returns the list of Amenity 
+        instances based on the attribute amenity_ids that contains all
         Amenity.id linked to the Place"""
         from models import storage
         from models.amenity import Amenity
