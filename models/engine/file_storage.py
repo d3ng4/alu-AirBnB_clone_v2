@@ -14,8 +14,8 @@ class FileStorage:
             return self.__objects
         obj_dict = {}
         for key, value in self.__objects.items():
-            if cls == value.__class__.__name__ or cls == value.__class__:
-                obj_dict[key] = self.__objects[key]
+            if type(value) == cls:
+                obj_dict[key] = value
         return obj_dict
 
     def new(self, obj):
