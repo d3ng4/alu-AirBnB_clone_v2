@@ -17,8 +17,6 @@ class State(BaseModel, Base):
         cities = relationship('City', backref='state',
                               cascade='all, delete-orphan')
     else:
-        name = ""
-
         @property
         def cities(self):
             from models import storage
@@ -28,6 +26,3 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     cities.append(city)
             return cities
-
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)

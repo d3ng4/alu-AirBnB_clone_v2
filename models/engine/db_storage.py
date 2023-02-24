@@ -32,7 +32,15 @@ class DBStorage:
         #     'database': HBNB_MYSQL_DB,
         #     'pool_pre_ping': True
         # })
-        self.__engine = create_engine('mysql+mysqldb://' + HBNB_MYSQL_USER + ':' + HBNB_MYSQL_PWD + '@' + HBNB_MYSQL_HOST + '/' + HBNB_MYSQL_DB)         
+        self.__engine = create_engine(
+            'mysql+mysqldb://' +
+            HBNB_MYSQL_USER +
+            ':' +
+            HBNB_MYSQL_PWD +
+            '@' +
+            HBNB_MYSQL_HOST +
+            '/' +
+            HBNB_MYSQL_DB)
 
         if HBNB_ENV == 'test':
             Base.metadata.drop_all(bind=self.__engine)
