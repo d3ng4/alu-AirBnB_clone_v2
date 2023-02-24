@@ -237,35 +237,35 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        # print_list = []
-        # args = args.split(' ')[0]  # remove possible trailing args
-
-        # if args == 0:
-        #     # print([str(v) for v in storage.all().values()])
-        #     obj_dict = storage.all()
-        # elif args in HBNBCommand.classes:
-        #     obj_dict = storage.all(HBNBCommand.classes[args])
-        # else:
-        #     print("** class doesn't exist **")
-        #     return False
-        # for key in obj_dict:
-        #     print_list.append(str(obj_dict[key]))
-        # print(print_list)
         print_list = []
+        args = args.split(' ')[0]  # remove possible trailing args
 
-        if args:
-            class_name = args.split()[0]
-            if class_name not in self.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in storage.all().items():
-                if k.split('.')[0] == class_name:
-                    print_list.append(str(v))
+        if args == 0:
+            # print([str(v) for v in storage.all().values()])
+            obj_dict = storage.all()
+        elif args in HBNBCommand.classes:
+            obj_dict = storage.all(HBNBCommand.classes[args])
         else:
-            for k, v in storage.all().items():
-                print_list.append(str(v))
-
+            print("** class doesn't exist **")
+            return False
+        for key in obj_dict:
+            print_list.append(str(obj_dict[key]))
         print(print_list)
+        # print_list = []
+
+        # if args:
+        #     class_name = args.split()[0]
+        #     if class_name not in self.classes:
+        #         print("** class doesn't exist **")
+        #         return
+        #     for k, v in storage.all().items():
+        #         if k.split('.')[0] == class_name:
+        #             print_list.append(str(v))
+        # else:
+        #     for k, v in storage.all().items():
+        #         print_list.append(str(v))
+
+        # print(print_list)
 
     def help_all(self):
         """ Help information for the all command """
