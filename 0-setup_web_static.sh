@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
+# using fabric to deploy airbnb web static
 
-"""
-using fabric to deploy airbnb web static
-"""
 # update packages list
 sudo apt-get update
 
@@ -25,7 +23,7 @@ echo "<html><head></head><body>Holberton School</body></html>" | sudo tee /data/
 sudo ln -sf /data/web_static/releases/test/  /data/web_static/current
 
 # give ownership of /data/ folder to ubuntu user and group
-sudo chown -R ubuntu:ubuntu /data/
+sudo chown -R root:root /data/
 
 # update nginx configuration to serve content of (/data/web_static/current/) to (hbnb_static)
 sudo sed -i '/listen 80 default_server;/a \\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-enabled/default
