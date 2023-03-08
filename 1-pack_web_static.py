@@ -25,8 +25,8 @@ def do_pack():
     archive_path = "{}/{}".format(path, new_file_name)
     if os.path.exists(archive_path):
         return archive_path
-    
-    return None
+    else:
+      return None
 
 x = do_pack()
 print(x)
