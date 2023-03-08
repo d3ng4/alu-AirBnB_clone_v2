@@ -5,7 +5,23 @@ folder using do_pack.
 """
 
 def do_pack():
-  """create folder versions if it doesnt exist
-  and pack files of web_static """
-  
-  tar -carvf web_static alu-AirBnB_clone_v2
+    """create folder versions if it doesnt exist
+    and pack files of web_static """
+    from datetime import datetime 
+    from fabric.api import local
+    import os
+    path = "versions"
+    if not os.path.exists(path):
+        os.makedirs(path)
+    now = datetime.now()
+    date = now.strftime("%Y%m%d%H%M%S")
+    command = "tar -cvzf versions/web_static_{}.tgz web_static".format(date)
+    local(command) # local("mkdir -p versions")
+    new_file_name = "web_static_{}.tgz".format(date)
+    # print("New file created: {}".format(new_file_name))
+    return new_file_name
+    # local("tar -cvzf versions/web_static_{}.tgz web_static".format(date))
+    # command = "tar -carvf web_static alu-AirBnB_clone_v2"
+
+x = do_pack()
+print(x)
