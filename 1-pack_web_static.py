@@ -9,10 +9,7 @@ import os
 
 
 def do_pack():
-    """
-    create folder versions if it doesnt exist
-    and pack files of web_static
-    """
+    """pack files of web_static folder into .tgz archive"""
 
     try:
         path = "versions"
@@ -29,6 +26,3 @@ def do_pack():
         return file_name
     except BaseException:
         return None
-
-# x = do_pack()
-# print(x)
