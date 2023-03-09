@@ -9,8 +9,10 @@ import os
 
 
 def do_pack():
-    """create folder versions if it doesnt exist
-    and pack files of web_static """
+    """
+    create folder versions if it doesnt exist
+    and pack files of web_static
+    """
 
     try:
         path = "versions"
