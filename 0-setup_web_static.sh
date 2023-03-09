@@ -9,15 +9,22 @@ if ! command -v nginx &> /dev/null
 then
   sudo apt-get install nginx -y
 fi
+sudo ufw allow 'Nginx HTTP'
 
 #create a folder /data/ if it doesn't exist
 # the -p helps prevent errors if the directory/subdirectories exists
 sudo mkdir -p /data/web_static
-sudo ln -sf /data/web_static/releases /data/web_static/current
-sudo ln -sf /data/web_static/shared /data/web_static/current
+sudo mkdir -p /data/web_static/releases/test/
+sudo mkdir -p /data/web_static/shared/
 
 # create a fake html file
-echo "<html><head></head><body>Holberton School</body></html>" | sudo tee /data/web_static/releases/test/index.html
+echo "<html>
+      <head>
+      </head>
+      <body>
+        Holberton School
+      </body>
+    </html>" | sudo tee /data/web_static/releases/test/index.html
 
 # create a symbolic link ..current linked to ..test/ folder
 # if the link exists, should be deleted and recreated
