@@ -36,10 +36,6 @@ file {'/data/web_static/releases/test/index.html':
       ensure => 'file',
       content => 'Holberton School',
       }
-# delete symbolic link /data/web_static/current
-file {'/data/web_static/current':
-      ensure => 'absent',
-      }
 # create symbolic link /data/web_static/current
 file {'/data/web_static/current':
       ensure => 'link',
