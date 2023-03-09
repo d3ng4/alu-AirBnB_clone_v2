@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-creating a .tgz archive from contents of web_static
+module - creating a .tgz archive from contents of web_static
 folder using do_pack.
 """
 from datetime import datetime
