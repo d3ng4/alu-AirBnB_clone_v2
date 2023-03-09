@@ -11,21 +11,20 @@ def do_pack():
     from datetime import datetime
     from fabric.api import local
     import os
-    path = "versions"
-    # if not os.path.exists(path):
-    #     os.makedirs(path)
-        #  or
-    if os.path.isdir(path) is False:
-        local("mkdir versions")  # create folder versions
-    now = datetime.now()
-    date = now.strftime("%Y%m%d%H%M%S")
-    file_name = "versions/web_static_{}.tgz".format(date)
-    command = f"tar -cvzf {file_name}.tgz web_static"
-    local(command)
- 
-    if os.path.exists(file_name):
-        return file_name
-    else:
+    try:
+      path = "versions"
+      # if not os.path.exists(path):
+      #     os.makedirs(path)
+          #  or
+      if os.path.isdir(path) is False:
+          local("mkdir versions")  # create folder versions
+      now = datetime.now()
+      date = now.strftime("%Y%m%d%H%M%S")
+      file_name = "versions/web_static_{}.tgz".format(date)
+      command = f"tar -cvzf {file_name} web_static"
+      local(command)
+      return file_name
+    except: 
         return None
 
 # x = do_pack()
