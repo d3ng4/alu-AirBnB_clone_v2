@@ -3,14 +3,14 @@
 creating a .tgz archive from contents of web_static
 folder using do_pack.
 """
-
+from datetime import datetime
+from fabric.api import local
+import os
 
 def do_pack():
     """create folder versions if it doesnt exist
     and pack files of web_static """
-    from datetime import datetime
-    from fabric.api import local
-    import os
+
     try:
       path = "versions"
       # if not os.path.exists(path):
