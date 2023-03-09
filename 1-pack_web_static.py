@@ -26,5 +26,5 @@ def do_pack():
         command = f"tar -cvzf {file_name} web_static"
         local(command)
         return file_name
-    except BaseException:
+    except:
         return None
