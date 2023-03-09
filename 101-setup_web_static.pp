@@ -55,7 +55,13 @@ file {'/data/web_static/shared/test':
 # create file /data/web_static/releases/test/index.html
 file {'/data/web_static/releases/test/index.html':
       ensure => 'file',
-      content => 'Holberton School',
+      content => '<html>
+                  <head>
+                  </head>
+                  <body>
+                    Holberton School
+                  </body>
+                  </html>',
       }
 # create symbolic link /data/web_static/current
 file {'/data/web_static/current':
