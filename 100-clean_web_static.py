@@ -11,7 +11,7 @@ def do_clean(number=0):
     """
     from fabric.api import local
     from fabric.api import env
-    env.hosts = ['ip_web-01', 'ip_web-02']  # list of web servers
+    env.hosts = ['107.23.168.84', '52.90.109.65']  # list of web servers
     number = int(number)
     if number == 0 or number == 1:
         local("ls -t versions | tail -n +2 | xargs rm -f")
