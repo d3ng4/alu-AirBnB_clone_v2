@@ -23,7 +23,7 @@ def do_deploy(archive_path):
         # without the extension
         run("mkdir -p {}/{}".format(path, file_no_ext))
         # uncompress the archive to the folder
-        run("tar -xzf /tmp/{}.tgz -C {}{}".format(
+        run("tar -xzf /tmp/{} -C {}{}".format(
             file, path, file_no_ext))
         # delete the archive from the web server
         run("rm /tmp/{}.tgz".format(file))
