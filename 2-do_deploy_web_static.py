@@ -21,12 +21,12 @@ def do_deploy(archive_path):
         put(archive_path, "/tmp/")
         # create a folder with the same name as the archive
         # without the extension
-        run("mkdir -p {}/{}/".format(path, file_no_ext))
+        run("mkdir -p {}{}/".format(path, file_no_ext))
         # uncompress the archive to the folder
-        run("tar -xzf /tmp/{}/ -C {}{}/".format(
+        run("tar -xzf /tmp/{} -C {}{}/".format(
             file, path, file_no_ext))
         # delete the archive from the web server
-        run("rm /tmp/{}/".format(file))
+        run("rm /tmp/{}".format(file))
         run("mv {0}{1}/web_static/* {0}{1}/".format(path, file_no_ext))
         # delete the symbolic link /data/web_static/current from the web server
         run("rm -rf {}{}/web_static".format(path, file_no_ext))
