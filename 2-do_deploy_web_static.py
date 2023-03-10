@@ -15,22 +15,27 @@ def do_deploy(archive_path):
     if archive_path is None or not os.path.exists(archive_path):
         return False
     try:
+        file = archive_path.split("/")[-1]
+        file_no_ext = file.split(".")[0]
+        path = "/data/web_static/releases/"
         # upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
         # create a folder with the same name as the archive
         # without the extension
-        run("mkdir -p /data/web_static/releases/{}".format(archive_path))
+        run("mkdir -p {}/{}".format(path, file_no_ext))
         # uncompress the archive to the folder
-        run("tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}".format(
-            archive_path))
+        run("tar -xzf /tmp/{}.tgz -C {}{}".format(
+            file, path, file_no_ext))
         # delete the archive from the web server
-        run("rm /tmp/{}.tgz".format(archive_path))
+        run("rm /tmp/{}.tgz".format(file))
+        run("mv {0}{1}/web_static/* {0}{1}/".format(path, file_no_ext))
         # delete the symbolic link /data/web_static/current from the web server
+        run("rm -rf {}{}/web_static".format(path, file_no_ext))
         run("rm -rf /data/web_static/current")
         # create new symbolic link /data/web_static/current on web server
         # linked to the new version of your code
-        run("ln -s /data/web_static/releases/{} /data/web_static/current".
-            format(archive_path))
+        run("ln -s {}{}/ /data/web_static/current".
+            format(path, file_no_ext))
         return True
-    except BaseException:
+    except:
         return False
