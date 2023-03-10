@@ -11,7 +11,7 @@ def do_deploy(archive_path):
     """
     import os
     from fabric.api import put, run, env
-    env.hosts = ['3.80.52.95', '100.26.42.134']  # list of web servers
+    env.hosts = ['107.23.168.84', '52.90.109.65']  # list of web servers
     if archive_path is None or not os.path.exists(archive_path):
         return False
     try:
