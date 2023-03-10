@@ -3,15 +3,14 @@
 script that distributes an archive to your web servers,
 using the function do_deploy
 """
-
+import os
+from fabric.api import put, run, env
+env.hosts = ['107.23.168.84', '52.90.109.65']  # list of web servers
 
 def do_deploy(archive_path):
     """
     function that distributes an archive to web servers
     """
-    import os
-    from fabric.api import put, run, env
-    env.hosts = ['107.23.168.84', '52.90.109.65']  # list of web servers
     if archive_path is None or not os.path.exists(archive_path):
         return False
     try:
