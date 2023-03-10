@@ -23,7 +23,7 @@ def do_pack():
         now = datetime.now()
         date = now.strftime("%Y%m%d%H%M%S")
         file_name = "versions/web_static_{}.tgz".format(date)
-        command = "tar -cvzf {} web_static".format(file_name) # create archive
+        command = "tar -cvzf {} web_static".format(file_name)
         local(command)
         return file_name
     except:
