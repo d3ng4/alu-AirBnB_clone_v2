@@ -6,7 +6,7 @@ using the function do_clean
 from fabric.api import local, run, env
 env.hosts = ['107.23.168.84', '52.90.109.65']  # list of web servers
 
-    
+
 def do_clean(number=0):
     """Deletes out-of-date archives"""
     files = local("ls -1t versions", capture=True)
