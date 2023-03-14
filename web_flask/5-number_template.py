@@ -5,6 +5,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)  # instance of Flask class
 
+
 @app.route('/', strict_slashes=False)  # decorator
 # fuction that returns Hello HBNB!
 def hello_hbnb():
@@ -42,8 +43,9 @@ def number(n):
     if isinstance(n, int):
         return '{} is a number'.format(n)
 
+
 @app.route('/number_template/<int:n>', strict_slashes=False)  # decorator
-#display html body only if n is an integer
+# display html body only if n is an integer
 def number_template(n):
     """ Function that returns n is a number! """
     # check is n is a number and return n is a number
