@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """ Script that starts a Flask web application """
 
-from flask import Flask 
+from flask import Flask
 app = Flask(__name__)  # instance of Flask class
 
 route = app.route('/', strict_slashes=False)  # decorator
-@route # decorator
+
+
+@route  # decorator
 # function that returns Hello HBNB!
 def hello_hbnb():
     """ Function that returns Hello HBNB! """
