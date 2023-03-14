@@ -6,6 +6,9 @@ from models import storage
 from models.base_model import BaseModel
 from models.state import State
 from models.city import City
+from os import getenv
+
+storage_type = getenv("HBNB_TYPE_STORAGE")
 
 """
  Objects creations
@@ -31,8 +34,13 @@ city_2_1.save()
 """
  Verification
 """
-# print("")
-# all_states = storage.all(State)
-# for state_id, state in all_states.items():
-#     for city in state.cities:
-#         print("Find the city {} in the state {}".format(city, state))
+print("")
+all_states = storage.all(State)
+for state_id, state in all_states.items():
+    if storage_type == "db":
+        cities = state.cities
+    else:
+        cities = [city for city in storage.all(City).values() if city.state_id == state.id]
+
+    for city in cities:
+        print("Find the city {} in the state {}".format(city, state))

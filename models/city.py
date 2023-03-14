@@ -7,6 +7,7 @@ from os import getenv
 # from models import storage_type
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
+from uuid import uuid4
 
 storage_type = getenv("HBNB_TYPE_STORAGE")
 
@@ -22,9 +23,10 @@ class City(BaseModel, Base):
                               cascade='all, delete-orphan')
     else:
         state_id = ""
-        id = ""
         name = ""
 
     def __init__(self, *args, **kwargs):
         """initializes city"""
         super().__init__(*args, **kwargs)
+        if not kwargs.get('id'):
+            self.id = str(uuid4())
